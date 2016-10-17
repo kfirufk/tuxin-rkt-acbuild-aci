@@ -8,7 +8,7 @@ fi
 PATH=/home/core/bin:$PATH
 rm serviio-1.0-linux-amd64.aci* || echo "old aci image not found"
 
-SERVIIO_VERSION=1.7
+SERVIIO_VERSION=1.7.1
 JAVA_VERSION=8
 JAVA_BUILD=102
 JAVA_URL_PATH=${JAVA_VERSION}u${JAVA_BUILD}
@@ -16,7 +16,7 @@ JAVA_B_VERSION=14
 # Start the build with an empty ACI
 acbuild --debug begin
 
- In the event of the script exiting, end the build
+# In the event of the script exiting, end the build
 acbuildEnd() {
     export EXIT=$?
     acbuild --debug end && exit $EXIT 
