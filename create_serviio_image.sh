@@ -5,12 +5,11 @@ if [ "$EUID" -ne 0 ]; then
     echo "This script uses functionality which requires root privileges"
     exit 1
 fi
-PATH=/home/core/bin:$PATH
 rm serviio-1.0-linux-amd64.aci* || echo "old aci image not found"
 
-SERVIIO_VERSION=1.7.1
+SERVIIO_VERSION=1.8
 JAVA_VERSION=8
-JAVA_BUILD=102
+JAVA_BUILD=121
 JAVA_URL_PATH=${JAVA_VERSION}u${JAVA_BUILD}
 JAVA_B_VERSION=14
 # Start the build with an empty ACI
@@ -32,7 +31,8 @@ acbuild --debug label add os linux
 # Based on alpine
 acbuild --debug dep add quay.io/coreos/alpine-sh
 
-acbuild --debug run -- apk update
+acbuild --debug run -- sed -i -e 's/v3\.2/v3.5/g' /etc/apk/repositories
+
 acbuild --debug run -- apk add curl wget bash ffmpeg
 acbuild --debug run -- apk --no-cache add ca-certificates
 acbuild --debug run -- curl -L -o /etc/apk/keys/sgerrand.rsa.pub https://raw.githubusercontent.com/sgerrand/alpine-pkg-glibc/master/sgerrand.rsa.pub
