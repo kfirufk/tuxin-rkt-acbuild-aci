@@ -32,6 +32,8 @@ acbuild --debug label add os linux
 acbuild --debug dep add quay.io/coreos/alpine-sh
 
 acbuild --debug run -- sed -i -e 's/v3\.2/v3.5/g' /etc/apk/repositories
+acbuild --debug run -- sed -i -e 's/nameserver\s+\d+\.\d+\.\d+\.\d+/nameserver 8.8.8.8\nnameserver 8.8.4.4/g'
+acbuild --debug run -- apk upgrade -U
 
 acbuild --debug run -- apk add curl wget bash ffmpeg
 acbuild --debug run -- apk --no-cache add ca-certificates
